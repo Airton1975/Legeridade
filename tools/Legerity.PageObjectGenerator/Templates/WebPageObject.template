@@ -1,0 +1,36 @@
+using System;
+using Legerity.Pages;
+using Legerity.Web;
+using Legerity.Web.Elements.Core;
+using OpenQA.Selenium;
+using OpenQA.Selenium.Remote;
+
+namespace {{namespace}}
+{
+    /// <summary>
+    /// Defines a Legerity page object that represents the {{page}} page.
+    /// </summary>
+    public class {{page}} : BasePage
+    {
+        /// <summary>
+        /// Gets a unique trait that confirms the {{page}} is loaded.
+        /// </summary>
+        protected override By Trait =>
+            {{- if string.contains trait.by "Id" }} By.Id("{{trait.value}}")
+            {{- else if string.contains trait.by "ClassName" }} By.ClassName("{{trait.value}}")
+            {{- else if string.contains trait.by "CssSelector" }} By.CssSelector("{{trait.value}}")
+            {{- end }};
+
+        {{~ for element in elements ~}}
+        /// <summary>
+        /// Gets the {{element.type}} representing the "{{element.name}}" element on the page.
+        /// </summary>
+        public {{element.type}} {{element.name}} => App.FindElement(
+            {{- if string.contains element.by "Id" }} By.Id("{{element.value}}")
+            {{- else if string.contains element.by "ClassName" }} By.ClassName("{{element.value}}")
+            {{- else if string.contains element.by "CssSelector" }} By.CssSelector("{{element.value}}")
+            {{- end }}) as {{element.type}};
+
+        {{~ end ~}}
+    }
+}

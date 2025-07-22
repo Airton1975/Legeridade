@@ -4,6 +4,7 @@ using System.IO;
 using System.Threading.Tasks;
 using CommandLine;
 using Features.Generators.Android;
+using Features.Generators.Web;
 using Features.Generators.Windows;
 using Infrastructure.Configuration;
 using Infrastructure.Logging;
@@ -41,7 +42,7 @@ public class Program
                         pageObjectGenerator = new AxmlPageObjectGenerator();
                         break;
                     case PlatformType.Web:
-                        Log.Warning("Web page object generation is not currently supported!");
+                        pageObjectGenerator = new VuePageObjectGenerator();
                         break;
                     case PlatformType.IOS:
                         Log.Warning("iOS page object generation is not currently supported!");
